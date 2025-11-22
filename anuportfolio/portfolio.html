@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Anusha Panepalli — Portfolio</title>
+
+  <style>
+    :root {
+      --accent-1: #7b2ff7;
+      --accent-2: #00c6ff;
+      --accent-3: #ff7a59;
+      --bg-gradient: linear-gradient(120deg, #f8faff, #fff7fa);
+      --card-bg: rgba(255,255,255,0.95);
+      --muted: #475569;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", system-ui, sans-serif;
+      color: #0b1220;
+      background: var(--bg-gradient);
+      overflow-x: hidden;
+    }
+
+    /* ======================= SIDEBAR ======================= */
+    .sidebar {
+      position: fixed;
+      left: 16px; top: 16px;
+      width: 230px; height: calc(100vh - 32px);
+      border-radius: 18px;
+      background: linear-gradient(160deg, #7b2ff7, #00c6ff);
+      color: white;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 12px 30px rgba(10,10,30,0.18);
+
+      /* NEW: sidebar scroll */
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    /* ======================= PROFILE IMAGE SQUARE ======================= */
+    .profile-thumb {
+      width: 130px;
+      height: 130px;
+      border-radius: 12px;    /* square shape */
+      object-fit: cover;
+      border: 3px solid #ffffff;
+      display: block;
+      margin: 0 auto;
+
+      /* Glow */
+      box-shadow:
+        0 0 15px rgba(0, 200, 255, 0.9),
+        0 0 35px rgba(0, 200, 255, 0.7);
+
+      /* Animations */
+      animation: floatUpDown 3s ease-in-out infinite,
+                 shake 4s infinite;
+    }
+
+    /* Floating animation */
+    @keyframes floatUpDown {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Shake animation */
+    @keyframes shake {
+      0%,100% { transform: rotate(0deg); }
+      25% { transform: rotate(1deg); }
+      50% { transform: rotate(-1deg); }
+      75% { transform: rotate(1deg); }
+    }
+
+    .brand { text-align: center; }
+
+    .name { 
+      font-weight: 700; 
+      font-size: 17px; 
+      margin-top: 10px; 
+    }
+
+    .role { 
+      font-size: 12px; 
+      opacity: 0.9; 
+      margin-top: -4px;
+    }
+
+    .nav {
+      margin-top: 10px;
+      display: flex; flex-direction: column; gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav a {
+      color: white; 
+      text-decoration: none;
+      padding: 10px 12px; 
+      border-radius: 10px;
+      font-weight: 600; 
+      font-size: 14px;
+      transition: all .2s ease;
+      cursor: pointer;
+    }
+
+    .nav a:hover, .nav a.active {
+      transform: translateX(6px);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .socials { 
+      margin-top: auto; 
+      display: flex; 
+      justify-content: center; 
+    }
+
+    .pill {
+      background: rgba(255,255,255,0.12);
+      padding: 8px 12px; border-radius: 999px;
+      color: white; 
+      font-weight: 600; 
+      text-decoration: none;
+    }
+
+    /* ======================= MAIN CONTENT ======================= */
+    main {
+      margin-left: 260px;
+      padding: 40px;
+    }
+
+    section {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(12,15,30,0.05);
+      display: none;
+    }
+
+    section.active { display: block; }
+
+    h1,h2 { color: #091428; }
+
+    /* skills */
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .skill {
+      flex: 1 1 150px;
+      background: linear-gradient(135deg, #7b2ff7, #00c6ff);
+      color: white;
+      text-align: center;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    /* projects */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .project-card {
+      padding: 20px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #7b2ff7, #00c6ff);
+      color: white;
+    }
+
+    /* certifications */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .cert-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      text-decoration: none;
+      color: black;
+    }
+
+    #contact {
+      background: linear-gradient(135deg, #7b2ff7, #00c6ff, #ff7a59);
+      color: white;
+      text-align: center;
+    }
+
+    #contact a {
+      color: #fff;
+      text-decoration: none;
+      background: rgba(255,255,255,0.15);
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 10px;
+      transition: 0.3s;
+    }
+
+    #contact a:hover {
+      background: white;
+      color: #7b2ff7;
+      transform: scale(1.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar {
+        width: 70px;
+        padding: 10px;
+      }
+      .name, .role, .nav a span { display: none; }
+      main { margin-left: 90px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======================= SIDEBAR ======================= -->
+  <aside class="sidebar">
+
+    <div class="brand">
+      <img src="anu copy.jpg" class="profile-thumb">
+      <div class="name">Anusha Panepalli</div>
+      <div class="role">IT Engineering Student</div>
+    </div>
+
+    <nav class="nav">
+      <a class="active" data-target="home">🏠 Home</a>
+      <a data-target="profile">🧾 Profile</a>
+      <a data-target="about">💡 About</a>
+      <a data-target="skills">🧩 Skills</a>
+      <a data-target="personal">📌 Personal Info</a>
+      <a data-target="hobbies">⭐ Hobbies</a>
+      <a data-target="workshops">🛠 Workshops</a>
+      <a data-target="projects">📂 Projects</a>
+      <a data-target="certifications">🎓 Certifications</a>
+      <a href="Resume.pdf.pdf" target="_blank">📄 Resume</a>
+      <a data-target="contact">📞 Contact</a>
+    </nav>
+
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/anusha-panepalli-7759072a1" target="_blank" class="pill">LinkedIn</a>
+    </div>
+  </aside>
+
+  <!-- ======================= MAIN CONTENT ======================= -->
+  <main>
+
+    <!-- HOME -->
+    <section id="home" class="active">
+      <h1>Hi, I'm Anusha Panepalli 👋</h1>
+      <p>I’m an IT student passionate about AI, ML & Flutter Development.</p>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="profile">
+      <h2>Profile</h2>
+      <p>
+        "Motivated and detail-oriented Information Technology student with strong problem-solving skills and
+        hands-on experience in projects like Brain Tumor Detection and Fake News Detection Chatbot.
+        Seeking an entry-level opportunity to apply technical skills and contribute to organizational growth
+        while continuously learning new technologies.”
+      </p>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+        I am an enthusiastic and dedicated Information Technology student (2023–2027) at SASI Institute of Technology & Engineering.  
+        I have a strong interest in **Artificial Intelligence, Machine Learning, Flutter App Development, and Web Technologies**.  
+        I love creating real-world solutions — from mobile apps to intelligent ML models — and I enjoy exploring new tools that help me grow as a developer.  
+        I believe in continuous learning, self-improvement, and building projects that make a meaningful impact.
+        I am also passionate about **designing clean user interfaces, working with data, and developing applications** that combine creativity with technology.
+        My goal is to become a skilled Software Engineer who can contribute to impactful, modern, and scalable technology.
+      </p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <h2>My Skills</h2>
+      <div class="skills-container">
+        <div class="skill">Python</div>
+        <div class="skill">C</div>
+        <div class="skill">C++</div>
+        <div class="skill">HTML</div>
+        <div class="skill">CSS</div>
+        <div class="skill">JavaScript</div>
+        <div class="skill">Flutter</div>
+        <div class="skill">MySQL</div>
+        <div class="skill">AI</div>
+        <div class="skill">Machine Learning</div>
+      </div>
+    </section>
+
+    <!-- PERSONAL INFO -->
+    <section id="personal">
+      <h2>Personal Information</h2>
+
+      <p><b>Full Name:</b> Anusha Panepalli</p>
+      <p><b>Date of Birth:</b> 17 August 2005</p>
+      <p><b>Father:</b> Veera Venkata Apparao</p>
+      <p><b>Mother:</b> Jyothi</p>
+      <p><b>Nationality:</b> Indian</p>
+      <p><b>Languages:</b> English, Telugu</p>
+      <p><b>Location:</b> Andhra Pradesh, India</p>
+
+      <h3>Education</h3>
+
+      <p><b>SASI Engineering College</b></p>
+      <p>Information Technology — <b>2023–2027</b></p>
+
+      <p><b>Greyfriars Junior College</b></p>
+      <p>MPC — <b>2021–2023</b></p>
+      <p><b>Percentage:</b> 9.4 / 10</p>
+    </section>
+
+    <!-- HOBBIES -->
+    <section id="hobbies">
+      <h2>Hobbies & Interests</h2>
+      <ul>
+        <li>Learning AI & ML</li>
+        <li>Flutter UI Design</li>
+        <li>Singing</li>
+        <li>Reading Tech Articles</li>
+      </ul>
+    </section>
+
+    <!-- WORKSHOPS -->
+    <section id="workshops">
+      <h2>Workshops Attended</h2>
+      <ul>
+        <li>Power BI Workshop</li>
+        <li>Flutter Workshop</li>
+        <li>AR/VR Workshop</li>
+        <li>Generative AI Workshop</li>
+      </ul>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2>My Projects</h2>
+
+      <div class="project-grid">
+
+        <div class="project-card">
+          <h3>📱 Library Management App</h3>
+          <p>Flutter app for book tracking, Firebase backend.</p>
+        </div>
+
+        <div class="project-card">
+          <h3>📰 Fake News Detection</h3>
+          <p>ML model using NLP to detect fake news.</p>
+        </div>
+
+        <div class="project-card">
+          <h3>🌾 Agri Chatbot</h3>
+          <p>A chatbot answering crop-related questions.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications">
+      <h2>My Certifications</h2>
+      <div class="cert-grid">
+        <a href="work.jpg" class="cert-card" target="_blank">AI Workshop</a>
+        <a href="code.jpg" class="cert-card" target="_blank">Learn C++ — CodeChef</a>
+        <a href="solo.jpg" class="cert-card" target="_blank">C++ — SoloLearn</a>
+        <a href="sri.jpg" class="cert-card" target="_blank">Networking Basics — Cisco</a>
+        <a href="anusha.jpg" class="cert-card" target="_blank">Operating Systems — Cisco</a>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Let’s Connect 💬</h2>
+      <p>Feel free to reach out!</p>
+      <a href="mailto:anushapanepalli@gmail.com">✉️ Email</a>
+      <a href="tel:+918985131783">📞 Call</a>
+      <a href="https://www.linkedin.com/in/anusha-panepalli-7759072a1" target="_blank">🔗 LinkedIn</a>
+      <a href="https://github.com/anushapanepalli" target="_blank">💻 GitHub</a>
+      <a href="https://www.codechef.com/users/anushapanepall" target="_blank">🍴 CodeChef</a>
+    </section>
+
+  </main>
+
+  <!-- NAVIGATION SCRIPT -->
+  <script>
+    const navLinks = document.querySelectorAll('.nav a');
+    const sections = document.querySelectorAll('main section');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+
+        const targetId = link.getAttribute('data-target');
+        sections.forEach(sec => {
+          sec.classList.remove('active');
+          if (sec.id === targetId) sec.classList.add('active');
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
